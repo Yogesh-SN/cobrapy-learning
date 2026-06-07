@@ -1,7 +1,7 @@
 from helpers import load_model
 
 def main():
-   model_path = "model.xml"  # your actual model file
+   model_path = "model.xml"  
    model = load_model(model_path)
 
 
