@@ -1,7 +1,7 @@
 from helpers import load_model
 
 def main():
-   model_path = "model.xml"  
+   model_path = "/home/yogi/programming/cobra_learning/models/e_coli_core.xml"  
    model = load_model(model_path)
 
 
