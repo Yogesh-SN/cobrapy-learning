@@ -6,7 +6,7 @@ def load_model(model_path: str) -> cobra.Model:
     Load a metabolic model from an SBML file.
 
     Parameters
-    ----------
+    ---------
     model_path : str
         Path to the SBML model file (.xml)
 
