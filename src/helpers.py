@@ -20,3 +20,7 @@ def load_model(model_path: str) -> cobra.Model:
         return model
     except Exception as e:
         raise RuntimeError(f"Failed to load model from {model_path}") from e
+
+def biomass_reaction(model) -> cobra.Reaction:
+    biomass_rxn = model.reactions.get_by_id("BIOMASS_Ecoli_core_w_GAM")
+    return biomass_rxn
