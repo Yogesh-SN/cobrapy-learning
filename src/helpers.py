@@ -30,7 +30,7 @@ def m9_media(model):
     Set the model medium to canonical M9 (aerobic, glucose).
     Intended to be used inside a `with model:` context.
     """
-    base = {
+    medium = {
         "EX_glc__D_e": 10.0,
         "EX_nh4_e": 10.0,
         "EX_pi_e": 10.0,
@@ -46,7 +46,7 @@ def m9_media(model):
 
 
     model.medium = {
-        k: v for k, v in base.items()
+        k: v for k, v in medium.items()
         if k in model.reactions
     }
 
