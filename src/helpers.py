@@ -24,3 +24,24 @@ def load_model(model_path: str) -> cobra.Model:
 def biomass_reaction(model) -> cobra.Reaction:
     biomass_rxn = model.reactions.get_by_id("BIOMASS_Ecoli_core_w_GAM")
     return biomass_rxn
+
+def m9_media(model):
+    """
+    Set the model medium to canonical M9 (aerobic, glucose).
+    Intended to be used inside a `with model:` context.
+    """
+    medium = {
+        "EX_glc__D_e": 10.0,
+        "EX_nh4_e": 10.0,
+        "EX_pi_e": 10.0,
+        "EX_so4_e": 10.0,
+        "EX_o2_e": 20.0,
+        "EX_h2o_e": 1000.0,
+        "EX_h_e": 1000.0,
+        "EX_k_e": 1000.0,
+        "EX_na1_e": 1000.0,
+        "EX_mg2_e": 1000.0,
+        "EX_ca2_e": 1000.0,
+    }
+
+    model.medium = medium
