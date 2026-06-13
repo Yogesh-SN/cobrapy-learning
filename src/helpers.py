@@ -52,3 +52,6 @@ def m9_media(model):
     }
 
     model.medium = medium
+
+def flux_sampling(model, n, sampler_object='optgp'):
+    return sample(model, n, sampler_object)
