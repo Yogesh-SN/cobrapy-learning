@@ -1,5 +1,6 @@
 import cobra
 from cobra.io import read_sbml_model
+from cobra.sampling import sample, OptGPSampler, ACHRSampler
 
 def load_model(model_path: str) -> cobra.Model:
     """
