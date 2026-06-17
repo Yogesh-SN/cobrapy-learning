@@ -61,5 +61,54 @@ def m9_media(model):
 
     model.medium = medium
 
+def varying_substrate(model, substrate, lower, upper, step):
+    """
+    Vary a substrate uptake bound and record growth rate.
+
+    Parameters:
+        model      : cobra.Model
+        substrate  : str (e.g. "EX_o2_e")
+        lower      : float (start value)
+        upper      : float (end value, inclusive if step fits)
+        step       : float (increment)
+
+    Returns:
+        list of tuples -> [(substrate_value, growth_rate), ...]
+    """
+
+    results = []
+
+    with model:
+        medium = model.medium.copy()  # avoid in-place mutation
+
+        # --- Error handling: substrate check ---
+        if substrate not in medium:
+            raise ValueError(
+                f"{substrate} not found in model.medium.\n"
+                f"Available keys: {list(medium.keys())[:10]}..."
+            )
+
+        val = lower
+        while val <= upper:
+            medium[substrate] = float(val)
+            model.medium = medium
+
+            try:
+                growth = model.slim_optimize()
+
+                # handle infeasible / None / nan
+                if growth is None:
+                    growth = 0.0
+                else:
+                    growth = round(float(growth), 3)
+
+            except Exception:
+                growth = 0.0
+
+            results.append((float(val), growth))
+            val += step
+
+    return results
+
 def flux_sampling(model, n, sampler_object='optgp'):
     return sample(model, n, sampler_object)
