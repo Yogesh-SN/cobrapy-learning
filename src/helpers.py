@@ -26,6 +26,14 @@ def biomass_reaction(model) -> cobra.Reaction:
     biomass_rxn = model.reactions.get_by_id("BIOMASS_Ecoli_core_w_GAM")
     return biomass_rxn
 
+def exchange_reactions(model):
+    exchange_reactions_list = []
+    for r in model.reactions: #All exchange reactions in the e_coli_core model
+        if 'EX' in r.id:
+            exchange_reactions_list.append(r)
+
+    return exchange_reactions_list
+
 def m9_media(model):
     """
     Set the model medium to canonical M9 (aerobic, glucose).
