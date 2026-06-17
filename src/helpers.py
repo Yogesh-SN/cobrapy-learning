@@ -30,7 +30,7 @@ def exchange_reactions(model):
     exchange_reactions_list = []
     for r in model.reactions: #All exchange reactions in the e_coli_core model
         if 'EX' in r.id:
-            exchange_reactions_list.append(r)
+            exchange_reactions_list.append(r.id)
 
     return exchange_reactions_list
 
