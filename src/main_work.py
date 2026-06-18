@@ -9,7 +9,7 @@ def main():
 
    print(biomass_reaction(model))
 
-   flux_sampling_to_csv(model, 100, 'test_sampling')
+   flux_sampling_to_csv(model, 100, 'test_sampling.csv')
 
 if __name__ == "__main__":
    main()
