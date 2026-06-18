@@ -114,8 +114,21 @@ def varying_substrate(model, substrate, lower, upper, step):
 def flux_sampling(model, n, sampler_object='optgp'):
     return sample(model, n, sampler_object)
 
-def flux_sampling_to_csv(model, n, filename="flux_samples.csv", sampler_object='optgp'):
+def flux_sampling_to_csv(model, n, filename="flux_samples.csv", 
+                         folder="data", sampler_object='optgp'):
+    
+    # Ensure folder exists
+    os.makedirs(folder, exist_ok=True)
+    
+    # Full path
+    filepath = os.path.join(folder, filename)
+    
+    # Run sampling
     samples = flux_sampling(model, n, sampler_object)
-    samples.to_csv(filename, index=False)
-    print(f"Saved {n} samples to {filename}")
+    
+    # Save to CSV inside folder
+    samples.to_csv(filepath, index=False)
+    
+    print(f"Saved {n} samples to {filepath}")
+    
     return samples
