@@ -2,6 +2,8 @@ import cobra
 from cobra.io import read_sbml_model
 from cobra.sampling import sample, OptGPSampler, ACHRSampler
 import os
+import itertools
+import random
 
 def load_model(model_path: str) -> cobra.Model:
     """
@@ -132,3 +134,24 @@ def flux_sampling_to_csv(model, n, filename="flux_samples.csv",
     print(f"Saved {n} samples to {filepath}")
     
     return samples
+
+def gen_media_conditions(exchanges, max_combo=2, n_random=50):
+    conditions = []
+
+    # Single substrates
+    for r in exchanges:
+        conditions.append({r: random.uniform(5, 15)})
+
+    # Pairwise combinations
+    for combo in itertools.combinations(exchanges, max_combo):
+        cond = {r: random.uniform(1, 10) for r in combo}
+        conditions.append(cond)
+
+    # Random mixtures (IMPORTANT)
+    for _ in range(n_random):
+        k = random.randint(1, max_combo + 1)
+        chosen = random.sample(exchanges, k)
+        cond = {r: random.uniform(0.5, 10) for r in chosen}
+        conditions.append(cond)
+
+    return conditions
